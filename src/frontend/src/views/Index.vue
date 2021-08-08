@@ -67,7 +67,7 @@
                     class="visually-hidden"
                     :checked="sizeItem.value === 'normal'"
                   />
-                  <span>{{ sizeItem.name }}</span>
+                  <b>{{ sizeItem.name }}</b>
                 </label>
               </div>
             </div>
