@@ -10,7 +10,8 @@
           inputName="diameter"
           :value="sizeItem.value"
           :label="sizeItem.name"
-          :isChecked="sizeItem.value === 'normal'"
+          :isChecked="sizeItem.value === currentSize"
+          @change="$emit('changeSize', $event)"
         />
       </div>
     </div>
@@ -28,6 +29,10 @@ export default {
   props: {
     sizeList: {
       type: Array,
+      required: true,
+    },
+    currentSize: {
+      type: String,
       required: true,
     },
   },

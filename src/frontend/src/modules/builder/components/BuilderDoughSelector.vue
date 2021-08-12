@@ -11,7 +11,8 @@
           :value="doughItem.value"
           :label="doughItem.name"
           :description="doughItem.description"
-          :isChecked="doughItem.value === 'light'"
+          :isChecked="doughItem.value === currentDough"
+          @change="$emit('changeDough', $event)"
         />
       </div>
     </div>
@@ -29,6 +30,10 @@ export default {
   props: {
     doughList: {
       type: Array,
+      required: true,
+    },
+    currentDough: {
+      type: String,
       required: true,
     },
   },

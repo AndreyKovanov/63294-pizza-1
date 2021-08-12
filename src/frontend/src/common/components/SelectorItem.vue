@@ -6,6 +6,7 @@
       :value="value"
       class="visually-hidden"
       :checked="isChecked"
+      @change="$emit('change', value)"
     />
     <b>{{ label }}</b>
     <span v-if="description">{{ description }}</span>

@@ -24,153 +24,32 @@
         <div class="content__wrapper">
           <h1 class="title title--big">Конструктор пиццы</h1>
 
-          <div class="content__dough">
-            <div class="sheet">
-              <h2 class="title title--small sheet__title">Выберите тесто</h2>
+          <BuilderDoughSelector
+            :doughList="dough"
+            :currentDough="currentDough"
+            @changeDough="currentDough = $event"
+          />
+          <BuilderSizeSelector
+            :sizeList="sizes"
+            :currentSize="currentSize"
+            @changeSize="currentSize = $event"
+          />
 
-              <div class="sheet__content dough">
-                <label
-                  v-for="doughItem in dough"
-                  :key="doughItem.id"
-                  class="dough__input"
-                  :class="`dough__input--${doughItem.value}`"
-                >
-                  <input
-                    type="radio"
-                    name="dought"
-                    :value="doughItem.value"
-                    class="visually-hidden"
-                    :checked="doughItem.value === 'light'"
-                  />
-                  <b>{{ doughItem.name }}</b>
-                  <span>{{ doughItem.description }}</span>
-                </label>
-              </div>
-            </div>
-          </div>
+          <BuilderIngredientsSelector
+            :sauceList="sauces"
+            :ingredientList="ingredients"
+            :currentIngredients="currentIngredients"
+            :currentSauce="currentSauce"
+            @updateIngredients="currentIngredients = $event"
+            @changeSauce="currentSauce = $event"
+          />
 
-          <div class="content__diameter">
-            <div class="sheet">
-              <h2 class="title title--small sheet__title">Выберите размер</h2>
-
-              <div class="sheet__content diameter">
-                <label
-                  v-for="sizeItem in sizes"
-                  :key="sizeItem.id"
-                  class="diameter__input"
-                  :class="`diameter__input--${sizeItem.value}`"
-                >
-                  <input
-                    type="radio"
-                    name="diameter"
-                    :value="sizeItem.value"
-                    class="visually-hidden"
-                    :checked="sizeItem.value === 'normal'"
-                  />
-                  <b>{{ sizeItem.name }}</b>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <div class="content__ingredients">
-            <div class="sheet">
-              <h2 class="title title--small sheet__title">
-                Выберите ингредиенты
-              </h2>
-
-              <div class="sheet__content ingredients">
-                <div class="ingredients__sauce">
-                  <p>Основной соус:</p>
-
-                  <label
-                    v-for="sauceItem in sauces"
-                    :key="sauceItem.id"
-                    class="radio ingredients__input"
-                  >
-                    <input
-                      type="radio"
-                      name="sauce"
-                      :value="sauceItem.value"
-                      :checked="sauceItem.value === 'tomato'"
-                    />
-                    <span>{{ sauceItem.name }}</span>
-                  </label>
-                </div>
-
-                <div class="ingredients__filling">
-                  <p>Начинка:</p>
-
-                  <ul class="ingredients__list">
-                    <li
-                      v-for="ingredientItem in ingredients"
-                      :key="ingredientItem.id"
-                      class="ingredients__item"
-                    >
-                      <span
-                        class="filling"
-                        :class="`filling--${ingredientItem.value}`"
-                        >{{ ingredientItem.name }}</span
-                      >
-
-                      <div class="counter counter--orange ingredients__counter">
-                        <button
-                          type="button"
-                          class="
-                            counter__button
-                            counter__button--disabled
-                            counter__button--minus
-                          "
-                        >
-                          <span class="visually-hidden">Меньше</span>
-                        </button>
-                        <input
-                          type="text"
-                          name="counter"
-                          class="counter__input"
-                          value="0"
-                        />
-                        <button
-                          type="button"
-                          class="counter__button counter__button--plus"
-                        >
-                          <span class="visually-hidden">Больше</span>
-                        </button>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="content__pizza">
-            <label class="input">
-              <span class="visually-hidden">Название пиццы</span>
-              <input
-                type="text"
-                name="pizza_name"
-                placeholder="Введите название пиццы"
-              />
-            </label>
-
-            <div class="content__constructor">
-              <div class="pizza pizza--foundation--big-tomato">
-                <div class="pizza__wrapper">
-                  <div class="pizza__filling pizza__filling--ananas"></div>
-                  <div class="pizza__filling pizza__filling--bacon"></div>
-                  <div class="pizza__filling pizza__filling--cheddar"></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="content__result">
-              <p>Итого: 0 ₽</p>
-              <button type="button" class="button button--disabled" disabled>
-                Готовьте!
-              </button>
-            </div>
-          </div>
+          <BuilderPizzaView
+            :currentSauce="currentSauce"
+            :currentSize="currentSize"
+            :currentDough="currentDough"
+            :currentIngredients="currentIngredients"
+          />
         </div>
       </form>
     </main>
@@ -178,16 +57,27 @@
 </template>
 
 <script>
+import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
+import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
+import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
+import BuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
 import pizzaData from "@/static/pizza.json";
 import {
   normalizeDough,
   normalizeSizes,
   normalizeSauces,
   normalizeIngredients,
+  getCurrentItems,
 } from "@/common/helpers";
 
 export default {
   name: "PizzaConstructor",
+  components: {
+    BuilderDoughSelector,
+    BuilderSizeSelector,
+    BuilderIngredientsSelector,
+    BuilderPizzaView,
+  },
   data() {
     const { dough, sizes, sauces, ingredients } = pizzaData;
 
@@ -196,6 +86,10 @@ export default {
       sizes: normalizeSizes(sizes),
       sauces: normalizeSauces(sauces),
       ingredients: normalizeIngredients(ingredients),
+      currentIngredients: getCurrentItems(ingredients),
+      currentDough: "light",
+      currentSize: "normal",
+      currentSauce: "tomato",
     };
   },
 };

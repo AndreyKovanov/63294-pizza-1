@@ -14,7 +14,8 @@
             inputName="sauce"
             :value="sauceItem.value"
             :label="sauceItem.name"
-            :isChecked="sauceItem.value === 'tomato'"
+            :isChecked="sauceItem.value === currentSauce"
+            @change="$emit('changeSauce', $event)"
           />
         </div>
 
@@ -33,7 +34,13 @@
                 >{{ ingredientItem.name }}</span
               >
 
-              <ItemCounter :value="0" class="ingredients__counter" />
+              <ItemCounter
+                :value="currentIngredients[ingredientItem.value]"
+                :name="ingredientItem.value"
+                @decrease="decreaseIngredientCount"
+                @increase="increaseIngredientCount"
+                class="ingredients__counter"
+              />
             </li>
           </ul>
         </div>
@@ -60,6 +67,28 @@ export default {
     ingredientList: {
       type: Array,
       required: true,
+    },
+    currentIngredients: {
+      type: Object,
+      required: true,
+    },
+    currentSauce: {
+      type: String,
+      required: true,
+    },
+  },
+  methods: {
+    decreaseIngredientCount(ingredientName) {
+      this.$emit("updateIngredients", {
+        ...this.currentIngredients,
+        [ingredientName]: this.currentIngredients[ingredientName] - 1,
+      });
+    },
+    increaseIngredientCount(ingredientName) {
+      this.$emit("updateIngredients", {
+        ...this.currentIngredients,
+        [ingredientName]: this.currentIngredients[ingredientName] + 1,
+      });
     },
   },
 };

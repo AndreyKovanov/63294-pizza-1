@@ -10,7 +10,10 @@
     </label>
 
     <div class="content__constructor">
-      <div class="pizza pizza--foundation--big-tomato">
+      <div
+        class="pizza"
+        :class="`pizza--foundation--${currentDough}-${currentSauce}`"
+      >
         <div class="pizza__wrapper">
           <div class="pizza__filling pizza__filling--ananas"></div>
           <div class="pizza__filling pizza__filling--bacon"></div>
@@ -27,16 +30,23 @@
 </template>
 
 <script>
-import SelectorItem from "@/common/components/SelectorItem";
-
 export default {
   name: "BuilderPizzaView",
-  components: {
-    SelectorItem,
-  },
   props: {
-    sizeList: {
-      type: Array,
+    currentSauce: {
+      type: String,
+      required: true,
+    },
+    currentSize: {
+      type: String,
+      required: true,
+    },
+    currentDough: {
+      type: String,
+      required: true,
+    },
+    currentIngredients: {
+      type: Object,
       required: true,
     },
   },
