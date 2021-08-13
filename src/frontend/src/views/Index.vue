@@ -49,6 +49,10 @@
             :currentSize="currentSize"
             :currentDough="currentDough"
             :currentIngredients="currentIngredients"
+            :doughList="dough"
+            :sizeList="sizes"
+            :sauceList="sauces"
+            :ingredientList="ingredients"
           />
         </div>
       </form>

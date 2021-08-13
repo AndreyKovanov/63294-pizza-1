@@ -39,3 +39,13 @@ export const getCurrentItems = () => {
 
   return currentItems;
 };
+
+export const getCountClass = (count) => {
+  if (count === 1) {
+    return "";
+  }
+
+  const postfix = count === 2 ? "second" : "third";
+
+  return ` pizza__filling--${postfix}`;
+};

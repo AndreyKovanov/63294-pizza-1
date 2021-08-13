@@ -15,9 +15,12 @@
         :class="`pizza--foundation--${currentDough}-${currentSauce}`"
       >
         <div class="pizza__wrapper">
-          <div class="pizza__filling pizza__filling--ananas"></div>
-          <div class="pizza__filling pizza__filling--bacon"></div>
-          <div class="pizza__filling pizza__filling--cheddar"></div>
+          <div
+            v-for="ingredientItem in choosenIngredientList"
+            :key="ingredientItem.id"
+            class="pizza__filling"
+            :class="`pizza__filling--${ingredientItem.value}${ingredientItem.countClass}`"
+          ></div>
         </div>
       </div>
     </div>
@@ -30,6 +33,8 @@
 </template>
 
 <script>
+import { getCountClass } from "@/common/helpers";
+
 export default {
   name: "BuilderPizzaView",
   props: {
@@ -48,6 +53,32 @@ export default {
     currentIngredients: {
       type: Object,
       required: true,
+    },
+    doughList: {
+      type: Array,
+      required: true,
+    },
+    sizeList: {
+      type: Array,
+      required: true,
+    },
+    sauceList: {
+      type: Array,
+      required: true,
+    },
+    ingredientList: {
+      type: Array,
+      required: true,
+    },
+  },
+  computed: {
+    choosenIngredientList() {
+      return this.ingredientList
+        .filter((ingredient) => this.currentIngredients[ingredient.value] > 0)
+        .map((ingredient) => ({
+          ...ingredient,
+          countClass: getCountClass(this.currentIngredients[ingredient.value]),
+        }));
     },
   },
 };
