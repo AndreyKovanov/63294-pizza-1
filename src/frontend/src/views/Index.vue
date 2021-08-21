@@ -49,9 +49,6 @@
             :currentSize="currentSize"
             :currentDough="currentDough"
             :currentIngredients="currentIngredients"
-            :doughList="dough"
-            :sizeList="sizes"
-            :sauceList="sauces"
             :ingredientList="ingredients"
           />
         </div>
@@ -84,16 +81,19 @@ export default {
   },
   data() {
     const { dough, sizes, sauces, ingredients } = pizzaData;
+    const normalizedDough = normalizeDough(dough);
+    const normalizedSized = normalizeSizes(sizes);
+    const normalizedSauces = normalizeSauces(sauces);
 
     return {
-      dough: normalizeDough(dough),
-      sizes: normalizeSizes(sizes),
-      sauces: normalizeSauces(sauces),
+      dough: normalizedDough,
+      sizes: normalizedSized,
+      sauces: normalizedSauces,
       ingredients: normalizeIngredients(ingredients),
       currentIngredients: getCurrentItems(ingredients),
-      currentDough: "light",
-      currentSize: "normal",
-      currentSauce: "tomato",
+      currentDough: normalizedDough[0],
+      currentSize: normalizedSized[1],
+      currentSauce: normalizedSauces[0],
     };
   },
 };

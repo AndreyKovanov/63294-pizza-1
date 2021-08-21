@@ -12,7 +12,7 @@
     <div class="content__constructor">
       <div
         class="pizza"
-        :class="`pizza--foundation--${currentDough}-${currentSauce}`"
+        :class="`pizza--foundation--${currentDough.value}-${currentSauce.value}`"
       >
         <div class="pizza__wrapper">
           <div
@@ -26,7 +26,7 @@
     </div>
 
     <div class="content__result">
-      <p>Итого: 0 ₽</p>
+      <p>Итого: {{ pizzaPrice }} ₽</p>
       <button type="button" class="button" disabled>Готовьте!</button>
     </div>
   </div>
@@ -39,31 +39,19 @@ export default {
   name: "BuilderPizzaView",
   props: {
     currentSauce: {
-      type: String,
+      type: Object,
       required: true,
     },
     currentSize: {
-      type: String,
+      type: Object,
       required: true,
     },
     currentDough: {
-      type: String,
+      type: Object,
       required: true,
     },
     currentIngredients: {
       type: Object,
-      required: true,
-    },
-    doughList: {
-      type: Array,
-      required: true,
-    },
-    sizeList: {
-      type: Array,
-      required: true,
-    },
-    sauceList: {
-      type: Array,
       required: true,
     },
     ingredientList: {
@@ -79,6 +67,20 @@ export default {
           ...ingredient,
           countClass: getCountClass(this.currentIngredients[ingredient.value]),
         }));
+    },
+    pizzaPrice() {
+      const ingredientSum = this.ingredientList.reduce(
+        (sum, currentIngredient) =>
+          sum +
+          currentIngredient.price *
+            this.currentIngredients[currentIngredient.value],
+        0
+      );
+
+      return (
+        (ingredientSum + this.currentDough.price + this.currentSauce.price) *
+        this.currentSize.multiplier
+      );
     },
   },
 };

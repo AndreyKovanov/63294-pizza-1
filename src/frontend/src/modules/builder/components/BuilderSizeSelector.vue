@@ -10,8 +10,8 @@
           inputName="diameter"
           :value="sizeItem.value"
           :label="sizeItem.name"
-          :isChecked="sizeItem.value === currentSize"
-          @change="$emit('changeSize', $event)"
+          :isChecked="sizeItem.value === currentSize.value"
+          @change="$emit('changeSize', sizeItem)"
         />
       </div>
     </div>
@@ -32,7 +32,7 @@ export default {
       required: true,
     },
     currentSize: {
-      type: String,
+      type: Object,
       required: true,
     },
   },

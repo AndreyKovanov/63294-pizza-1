@@ -14,8 +14,8 @@
             inputName="sauce"
             :value="sauceItem.value"
             :label="sauceItem.name"
-            :isChecked="sauceItem.value === currentSauce"
-            @change="$emit('changeSauce', $event)"
+            :isChecked="sauceItem.value === currentSauce.value"
+            @change="$emit('changeSauce', sauceItem)"
           />
         </div>
 
@@ -73,7 +73,7 @@ export default {
       required: true,
     },
     currentSauce: {
-      type: String,
+      type: Object,
       required: true,
     },
   },

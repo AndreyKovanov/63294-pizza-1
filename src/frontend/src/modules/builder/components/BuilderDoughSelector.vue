@@ -11,8 +11,8 @@
           :value="doughItem.value"
           :label="doughItem.name"
           :description="doughItem.description"
-          :isChecked="doughItem.value === currentDough"
-          @change="$emit('changeDough', $event)"
+          :isChecked="doughItem.value === currentDough.value"
+          @change="$emit('changeDough', doughItem)"
         />
       </div>
     </div>
@@ -33,7 +33,7 @@ export default {
       required: true,
     },
     currentDough: {
-      type: String,
+      type: Object,
       required: true,
     },
   },
