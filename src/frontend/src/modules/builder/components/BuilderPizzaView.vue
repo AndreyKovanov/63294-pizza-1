@@ -6,6 +6,8 @@
         type="text"
         name="pizza_name"
         placeholder="Введите название пиццы"
+        :value="pizzaName"
+        @input="pizzaName = $event.target.value"
       />
     </label>
 
@@ -27,7 +29,14 @@
 
     <div class="content__result">
       <p>Итого: {{ pizzaPrice }} ₽</p>
-      <button type="button" class="button" disabled>Готовьте!</button>
+      <button
+        type="button"
+        class="button"
+        :disabled="isSubmittDisabled"
+        @click="startCooking"
+      >
+        Готовьте!
+      </button>
     </div>
   </div>
 </template>
@@ -59,6 +68,9 @@ export default {
       required: true,
     },
   },
+  data() {
+    return { pizzaName: "" };
+  },
   computed: {
     choosenIngredientList() {
       return this.ingredientList
@@ -66,6 +78,7 @@ export default {
         .map((ingredient) => ({
           ...ingredient,
           countClass: getCountClass(this.currentIngredients[ingredient.value]),
+          count: this.currentIngredients[ingredient.value],
         }));
     },
     pizzaPrice() {
@@ -81,6 +94,21 @@ export default {
         (ingredientSum + this.currentDough.price + this.currentSauce.price) *
         this.currentSize.multiplier
       );
+    },
+    isSubmittDisabled() {
+      return this.choosenIngredientList.length === 0 || !this.pizzaName;
+    },
+  },
+  methods: {
+    startCooking() {
+      this.$emit("addPizza", {
+        name: this.pizzaName,
+        price: this.pizzaPrice,
+        ingredients: this.choosenIngredientList,
+        sauce: this.currentSauce,
+        size: this.currentSize,
+        dough: this.currentDough,
+      });
     },
   },
 };

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <AppLayoutHeader :user="user" />
+    <AppLayoutHeader :user="user" :orderPrice="orderPrice" />
 
     <main class="content">
-      <PizzaConstructor />
+      <PizzaConstructor @addPizza="currentOrder.push($event)" />
     </main>
   </div>
 </template>
@@ -21,7 +21,16 @@ export default {
   data() {
     return {
       user: "Василий Ложкин",
+      currentOrder: [],
     };
+  },
+  computed: {
+    orderPrice() {
+      return this.currentOrder.reduce(
+        (sum, currentItem) => sum + currentItem.price,
+        0
+      );
+    },
   },
 };
 </script>

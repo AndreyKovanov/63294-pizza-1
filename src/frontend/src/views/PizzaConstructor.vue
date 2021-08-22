@@ -29,6 +29,7 @@
         :currentDough="currentDough"
         :currentIngredients="currentIngredients"
         :ingredientList="ingredients"
+        @addPizza="$emit('addPizza', $event)"
       />
     </div>
   </form>
