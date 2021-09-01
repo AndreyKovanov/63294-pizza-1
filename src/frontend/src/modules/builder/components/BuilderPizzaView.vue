@@ -11,7 +11,7 @@
       />
     </label>
 
-    <div class="content__constructor">
+    <AppDrop @drop="addIngredient" class="content__constructor">
       <div
         class="pizza"
         :class="`pizza--foundation--${currentDough.value}-${currentSauce.value}`"
@@ -25,7 +25,7 @@
           ></div>
         </div>
       </div>
-    </div>
+    </AppDrop>
 
     <div class="content__result">
       <p>Итого: {{ pizzaPrice }} ₽</p>
@@ -43,9 +43,13 @@
 
 <script>
 import { getCountClass } from "@/common/helpers";
+import AppDrop from "@/common/components/AppDrop";
 
 export default {
   name: "BuilderPizzaView",
+  components: {
+    AppDrop,
+  },
   props: {
     currentSauce: {
       type: Object,
@@ -108,6 +112,12 @@ export default {
         sauce: this.currentSauce,
         size: this.currentSize,
         dough: this.currentDough,
+      });
+    },
+    addIngredient(ingredientName) {
+      this.$emit("updateIngredients", {
+        ...this.currentIngredients,
+        [ingredientName]: this.currentIngredients[ingredientName] + 1,
       });
     },
   },

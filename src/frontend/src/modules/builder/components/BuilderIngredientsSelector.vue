@@ -28,11 +28,16 @@
               :key="ingredientItem.id"
               class="ingredients__item"
             >
-              <span
-                class="filling"
-                :class="`filling--${ingredientItem.value}`"
-                >{{ ingredientItem.name }}</span
+              <AppDrag
+                :transfer-data="ingredientItem.value"
+                :isDraggable="currentIngredients[ingredientItem.value] < 3"
               >
+                <span
+                  class="filling"
+                  :class="`filling--${ingredientItem.value}`"
+                  >{{ ingredientItem.name }}</span
+                >
+              </AppDrag>
 
               <ItemCounter
                 :value="currentIngredients[ingredientItem.value]"
@@ -50,12 +55,14 @@
 </template>
 
 <script>
+import AppDrag from "@/common/components/AppDrag";
 import ItemCounter from "@/common/components/ItemCounter";
 import RadioButton from "@/common/components/RadioButton";
 
 export default {
   name: "BuilderIngredientsSelector",
   components: {
+    AppDrag,
     ItemCounter,
     RadioButton,
   },
