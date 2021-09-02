@@ -1,5 +1,5 @@
 <template>
-  <label :class="`${inputName}__input ${inputName}__input--${value}`">
+  <label>
     <input
       type="radio"
       :name="inputName"
@@ -38,5 +38,3 @@ export default {
   },
 };
 </script>
-
-<style></style>
