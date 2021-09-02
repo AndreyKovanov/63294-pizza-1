@@ -29,3 +29,23 @@ export const normalizeIngredients = (items) =>
     value: INGREDIENT_LIST.find(({ name }) => ingredientItem.name === name)
       ?.value,
   }));
+
+export const getCurrentItems = () => {
+  const currentItems = {};
+
+  INGREDIENT_LIST.forEach(({ value }) => {
+    currentItems[value] = 0;
+  });
+
+  return currentItems;
+};
+
+export const getCountClass = (count) => {
+  if (count === 1) {
+    return "";
+  }
+
+  const postfix = count === 2 ? "second" : "third";
+
+  return ` pizza__filling--${postfix}`;
+};

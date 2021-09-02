@@ -6,7 +6,7 @@
 
   cursor: pointer;
 
-  span {
+  b {
     @include r-s16-h19;
 
     position: relative;
@@ -35,31 +35,31 @@
   }
 
   &--small {
-    span::before {
+    b::before {
       background-size: 18px;
     }
   }
 
   &--normal {
-    span::before {
+    b::before {
       background-size: 29px;
     }
   }
 
   &--big {
-    span::before {
+    b::before {
       background-size: 100%;
     }
   }
 
   &:hover {
-    span::before {
+    b::before {
       box-shadow: $shadow-regular;
     }
   }
 
   input {
-    &:checked + span::before {
+    &:checked + b::before {
       box-shadow: $shadow-large;
     }
   }
