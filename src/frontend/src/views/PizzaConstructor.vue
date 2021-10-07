@@ -1,39 +1,42 @@
 <template>
-  <form action="#" method="post">
-    <div class="content__wrapper">
-      <h1 class="title title--big">Конструктор пиццы</h1>
+  <main class="content">
+    <router-view />
+    <form action="#" method="post">
+      <div class="content__wrapper">
+        <h1 class="title title--big">Конструктор пиццы</h1>
 
-      <BuilderDoughSelector
-        :doughList="dough"
-        :currentDough="currentDough"
-        @changeDough="currentDough = $event"
-      />
-      <BuilderSizeSelector
-        :sizeList="sizes"
-        :currentSize="currentSize"
-        @changeSize="currentSize = $event"
-      />
+        <BuilderDoughSelector
+          :doughList="dough"
+          :currentDough="currentDough"
+          @changeDough="currentDough = $event"
+        />
+        <BuilderSizeSelector
+          :sizeList="sizes"
+          :currentSize="currentSize"
+          @changeSize="currentSize = $event"
+        />
 
-      <BuilderIngredientsSelector
-        :sauceList="sauces"
-        :ingredientList="ingredients"
-        :currentIngredients="currentIngredients"
-        :currentSauce="currentSauce"
-        @updateIngredients="currentIngredients = $event"
-        @changeSauce="currentSauce = $event"
-      />
+        <BuilderIngredientsSelector
+          :sauceList="sauces"
+          :ingredientList="ingredients"
+          :currentIngredients="currentIngredients"
+          :currentSauce="currentSauce"
+          @updateIngredients="currentIngredients = $event"
+          @changeSauce="currentSauce = $event"
+        />
 
-      <BuilderPizzaView
-        :currentSauce="currentSauce"
-        :currentSize="currentSize"
-        :currentDough="currentDough"
-        :currentIngredients="currentIngredients"
-        :ingredientList="ingredients"
-        @addPizza="$emit('addPizza', $event)"
-        @updateIngredients="currentIngredients = $event"
-      />
-    </div>
-  </form>
+        <BuilderPizzaView
+          :currentSauce="currentSauce"
+          :currentSize="currentSize"
+          :currentDough="currentDough"
+          :currentIngredients="currentIngredients"
+          :ingredientList="ingredients"
+          @addPizza="$emit('addPizza', $event)"
+          @updateIngredients="currentIngredients = $event"
+        />
+      </div>
+    </form>
+  </main>
 </template>
 
 <script>

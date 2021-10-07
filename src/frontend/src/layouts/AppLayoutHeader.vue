@@ -1,23 +1,23 @@
 <template>
   <header class="header">
     <div class="header__logo">
-      <a href="#" class="logo">
+      <router-link to="/" class="logo">
         <img
           src="@/assets/img/logo.svg"
           alt="V!U!E! Pizza logo"
           width="90"
           height="40"
         />
-      </a>
+      </router-link>
     </div>
 
     <div class="header__cart">
-      <a href="cart.html">{{ orderPrice }} ₽</a>
+      <router-link to="/cart">{{ orderPrice }} ₽</router-link>
     </div>
 
     <div class="header__user">
       <template v-if="user">
-        <a href="user-data.html">
+        <router-link to="/profile">
           <img
             src="@/assets/img/users/user5.jpg"
             :alt="user"
@@ -25,11 +25,13 @@
             height="32"
           />
           <span>{{ user }}</span>
-        </a>
+        </router-link>
         <a href="#logout" class="header__logout"><span>Выйти</span></a>
       </template>
 
-      <a v-else href="#login" class="header__login"><span>Войти</span></a>
+      <router-link v-else to="/login" class="header__login">
+        <span>Войти</span>
+      </router-link>
     </div>
   </header>
 </template>

@@ -1,16 +1,27 @@
 <template>
   <div id="app">
-    <AppLayout />
+    <AppLayout :user="user" :orderPrice="orderPrice">
+      <router-view @addPizza="currentOrder.push($event)" />
+    </AppLayout>
   </div>
 </template>
 
 <script>
-import AppLayout from "@/layouts/AppLayout";
-
 export default {
   name: "App",
-  components: {
-    AppLayout,
+  data() {
+    return {
+      user: "Василий Ложкин",
+      currentOrder: [],
+    };
+  },
+  computed: {
+    orderPrice() {
+      return this.currentOrder.reduce(
+        (sum, currentItem) => sum + currentItem.price,
+        0
+      );
+    },
   },
 };
 </script>
