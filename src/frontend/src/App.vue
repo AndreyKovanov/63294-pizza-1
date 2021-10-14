@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <AppLayout :user="user" :orderPrice="orderPrice">
+    <AppLayout :orderPrice="orderPrice">
       <router-view @addPizza="currentOrder.push($event)" />
     </AppLayout>
   </div>
@@ -11,7 +11,6 @@ export default {
   name: "App",
   data() {
     return {
-      user: "Василий Ложкин",
       currentOrder: [],
     };
   },

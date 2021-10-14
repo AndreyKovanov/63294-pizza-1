@@ -1,5 +1,5 @@
 <template>
-  <component :is="layout" :user="user" :orderPrice="orderPrice">
+  <component :is="layout" :orderPrice="orderPrice">
     <slot />
   </component>
 </template>
@@ -13,9 +13,6 @@ export default {
     orderPrice: {
       type: Number,
       required: true,
-    },
-    user: {
-      type: String,
     },
   },
   computed: {

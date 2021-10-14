@@ -1,6 +1,6 @@
 <template>
   <div class="app-layout-default">
-    <AppLayoutHeader :user="user" :orderPrice="orderPrice" />
+    <AppLayoutHeader :orderPrice="orderPrice" />
 
     <slot />
   </div>
@@ -18,9 +18,6 @@ export default {
     orderPrice: {
       type: Number,
       required: true,
-    },
-    user: {
-      type: String,
     },
   },
 };

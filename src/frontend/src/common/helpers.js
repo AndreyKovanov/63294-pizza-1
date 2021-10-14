@@ -5,6 +5,9 @@ import {
   INGREDIENT_LIST,
 } from "@/common/constants";
 
+export const capitalize = (string) =>
+  `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
+
 export const normalizeDough = (items) =>
   items.map((doughItem) => ({
     ...doughItem,

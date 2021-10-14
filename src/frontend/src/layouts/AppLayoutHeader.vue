@@ -18,13 +18,8 @@
     <div class="header__user">
       <template v-if="user">
         <router-link to="/profile">
-          <img
-            src="@/assets/img/users/user5.jpg"
-            :alt="user"
-            width="32"
-            height="32"
-          />
-          <span>{{ user }}</span>
+          <img :src="user.avatar" :alt="user.name" width="32" height="32" />
+          <span>{{ user.name }}</span>
         </router-link>
         <a href="#logout" class="header__logout"><span>Выйти</span></a>
       </template>
@@ -37,6 +32,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "AppLayoutHeader",
   props: {
@@ -44,9 +41,9 @@ export default {
       type: Number,
       required: true,
     },
-    user: {
-      type: String,
-    },
+  },
+  computed: {
+    ...mapState("Auth", ["user"]),
   },
 };
 </script>
